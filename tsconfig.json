@@ -3,6 +3,9 @@
 		"module": "nodenext",
 		"moduleResolution": "nodenext",
 		"allowJs": true,
+		"paths": {
+			"@/*": ["./src/*"]
+		},
 		"resolvePackageJsonExports": true,
 		"esModuleInterop": true,
 		"isolatedModules": true,
