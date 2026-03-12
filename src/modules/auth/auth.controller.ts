@@ -15,7 +15,12 @@ import type { Request, Response } from 'express'
 import { lastValueFrom } from 'rxjs'
 
 import { AuthClientGrpc } from './auth.grpc'
-import { SendOtpRequest, TelegramVerifyRequest, VerifyOtpRequest } from './dto'
+import {
+	SendOtpRequest,
+	TelegramFinalizeRequest,
+	TelegramVerifyRequest,
+	VerifyOtpRequest
+} from './dto'
 
 @Controller('auth')
 export class AuthController {
@@ -48,6 +53,7 @@ export class AuthController {
 		const { accessToken, refreshToken } = await lastValueFrom(
 			this.client.verifyOtp(dto)
 		)
+
 		response.cookie('refreshToken', refreshToken, {
 			httpOnly: true,
 			secure: true,
@@ -55,6 +61,7 @@ export class AuthController {
 			sameSite: 'lax',
 			maxAge: 30 * 24 * 60 * 60 * 1000
 		})
+
 		return { accessToken }
 	}
 
@@ -68,10 +75,11 @@ export class AuthController {
 		@Req() request: Request,
 		@Res({ passthrough: true }) response: Response
 	) {
-		const refreshToken = request.cookies.refreshToken
+		const { refreshToken } = request.cookies
 		const { accessToken, refreshToken: newRefreshToken } = await lastValueFrom(
 			this.client.refresh({ refreshToken })
 		)
+
 		response.cookie('refreshToken', newRefreshToken, {
 			httpOnly: true,
 			secure: true,
@@ -79,6 +87,7 @@ export class AuthController {
 			sameSite: 'lax',
 			maxAge: 30 * 24 * 60 * 60 * 1000
 		})
+
 		return { accessToken }
 	}
 
@@ -96,6 +105,7 @@ export class AuthController {
 			sameSite: 'lax',
 			expires: new Date(0)
 		})
+
 		return { ok: true }
 	}
 
@@ -112,10 +122,12 @@ export class AuthController {
 		@Res({ passthrough: true }) response: Response
 	) {
 		const query = JSON.parse(atob(dto.tgAuthResult))
+
 		const result = await lastValueFrom(this.client.telegramVerify({ query }))
 		if ('url' in result && result.url) return result
 		if (!result.accessToken || !result.refreshToken)
 			throw new UnauthorizedException('Invalid Telegram login response')
+
 		const { accessToken, refreshToken } = result
 		response.cookie('refreshToken', refreshToken, {
 			httpOnly: true,
@@ -124,6 +136,28 @@ export class AuthController {
 			sameSite: 'lax',
 			maxAge: 30 * 24 * 60 * 60 * 1000
 		})
+
+		return { accessToken }
+	}
+
+	@Post('telegram/finalize')
+	@HttpCode(HttpStatus.OK)
+	public async finalizeTelegramLogin(
+		@Body() dto: TelegramFinalizeRequest,
+		@Res({ passthrough: true }) response: Response
+	) {
+		const { accessToken, refreshToken } = await lastValueFrom(
+			this.client.telegramConsume(dto)
+		)
+
+		response.cookie('refreshToken', refreshToken, {
+			httpOnly: true,
+			secure: true,
+			domain: this.configService.getOrThrow<string>('COOKIES_DOMAIN'),
+			sameSite: 'lax',
+			maxAge: 30 * 24 * 60 * 60 * 1000
+		})
+
 		return { accessToken }
 	}
 }
