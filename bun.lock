@@ -15,8 +15,9 @@
         "@nestjs/swagger": "^11.2.6",
         "@types/cookie-parser": "^1.4.10",
         "@vendee-cinema/common": "^1.0.0",
-        "@vendee-cinema/contracts": "^1.0.4",
+        "@vendee-cinema/contracts": "^1.0.5",
         "@vendee-cinema/core": "^1.0.4",
+        "@vendee-cinema/passport": "^1.0.3",
         "class-transformer": "^0.5.1",
         "class-validator": "^0.15.1",
         "cookie-parser": "^1.4.7",
@@ -463,9 +464,11 @@
 
     "@vendee-cinema/common": ["@vendee-cinema/common@1.0.0", "", {}, "sha512-lg/bNlYAEoZKwLxaMNhMpXqL0AF/vhrhxDPpy8ndIgaCeO4dZTyLqf1ZVDchJKzkJ3uz0Vz4lc4of89b0eavjg=="],
 
-    "@vendee-cinema/contracts": ["@vendee-cinema/contracts@1.0.4", "", { "dependencies": { "@nestjs/microservices": "^11.1.16", "rxjs": "^7.8.2", "ts-proto": "^2.11.4" } }, "sha512-5bPRbqcuPR1DSe3RrLb/AWh0O9ANDl3fqhgy8pumAO/yrPVhW6yhyYc1eaiZsPPCtWcoSpmVJvhDHJk6LTI0cA=="],
+    "@vendee-cinema/contracts": ["@vendee-cinema/contracts@1.0.5", "", { "dependencies": { "@nestjs/microservices": "^11.1.16", "rxjs": "^7.8.2", "ts-proto": "^2.11.4" } }, "sha512-nuCs/cVNeNr15L6Z7gg+1aXVD2bWj9zlgRcu8ojXKMiApT9GG07ZOw6RjJ4JkLJyOlrAUWdZjEsxmdYBLx2yCQ=="],
 
     "@vendee-cinema/core": ["@vendee-cinema/core@1.0.4", "", { "dependencies": { "@trivago/prettier-plugin-sort-imports": "6.0.2" }, "peerDependencies": { "prettier": "^3.8.1" } }, "sha512-Ik86wW9E01v5/4Ko8qkmhHOSGJgjbTQB28KWJ/23sxN0A0dKkR8pQ9V4lcN38py+QbvX4SlgT4DoUNfSbzf3qw=="],
+
+    "@vendee-cinema/passport": ["@vendee-cinema/passport@1.0.3", "", { "dependencies": { "@nestjs/common": "^11.1.16", "@nestjs/core": "^11.1.16", "reflect-metadata": "^0.2.2", "rxjs": "^7.8.2", "ts-node": "^10.9.2" } }, "sha512-dBy26lqKgg0uxMrzz+VJ1TuQw1wdTKz0+S/3q0oB6jm2KJArnFObYMmuvrbh4HfqlAufYkP3/OhqVsOxX+Yvgg=="],
 
     "@webassemblyjs/ast": ["@webassemblyjs/ast@1.14.1", "", { "dependencies": { "@webassemblyjs/helper-numbers": "1.13.2", "@webassemblyjs/helper-wasm-bytecode": "1.13.2" } }, "sha512-nuBEDgQfm1ccRp/8bCQrx1frohyufl4JlbMMZ4P1wpeOfDhF6FQkxZJ1b/e+PLwr6X1Nhw6OLme5usuBWYBvuQ=="],
 

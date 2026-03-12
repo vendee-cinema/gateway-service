@@ -20,7 +20,8 @@ export class AppController {
 	@Get('health')
 	@ApiOperation({
 		summary: 'Health check',
-		description: 'Checks is the gateway is running. Returns OK status and call timestamp'
+		description:
+			'Checks is the gateway is running. Returns OK status and call timestamp'
 	})
 	@ApiOkResponse({
 		type: HealthResponse
