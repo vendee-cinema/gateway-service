@@ -1,5 +1,12 @@
 import { ApiProperty } from '@nestjs/swagger'
-import { IsIn, IsNotEmpty, IsNumberString, IsString, Length, Validate } from 'class-validator'
+import {
+	IsIn,
+	IsNotEmpty,
+	IsNumberString,
+	IsString,
+	Length,
+	Validate
+} from 'class-validator'
 
 import { IdentifierValidator } from '@/shared/validators'
 
@@ -9,9 +16,9 @@ export class VerifyOtpRequest {
 	@ApiProperty({ examples: ['johndoe@email.com', '+380123456789'] })
 	public identifier: string
 
-	@IsIn(['phone', 'email'])
-	@ApiProperty({ examples: ['phone', 'email'], enum: ['phone', 'email'] })
-	public type: 'phone' | 'email'
+	@IsIn(['PHONE', 'EMAIL'])
+	@ApiProperty({ examples: ['PHONE', 'EMAIL'], enum: ['PHONE', 'EMAIL'] })
+	public type: 'PHONE' | 'EMAIL'
 
 	@IsNumberString()
 	@IsNotEmpty()

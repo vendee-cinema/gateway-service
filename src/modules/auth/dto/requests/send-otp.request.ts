@@ -9,7 +9,7 @@ export class SendOtpRequest {
 	@ApiProperty({ examples: ['johndoe@email.com', '+380123456789'] })
 	public identifier: string
 
-	@IsIn(['phone', 'email'])
-	@ApiProperty({ examples: ['phone', 'email'], enum: ['phone', 'email'] })
-	public type: 'phone' | 'email'
+	@IsIn(['PHONE', 'EMAIL'])
+	@ApiProperty({ examples: ['PHONE', 'EMAIL'], enum: ['PHONE', 'EMAIL'] })
+	public type: 'PHONE' | 'EMAIL'
 }
