@@ -1,5 +1,5 @@
 {
-	"name": "gateway-service",
+	"name": "@vendee-cinema/gateway-service",
 	"version": "1.0.0",
 	"description": "API Gateway service for the microservices architecture, handling request routing, authentication, and aggregation of multiple backend services.",
 	"author": {
