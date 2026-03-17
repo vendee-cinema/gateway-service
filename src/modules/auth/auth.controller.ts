@@ -12,7 +12,6 @@ import {
 import { ConfigService } from '@nestjs/config'
 import { ApiOperation } from '@nestjs/swagger'
 import type { Request, Response } from 'express'
-import { lastValueFrom } from 'rxjs'
 
 import { AuthClientGrpc } from './auth.grpc'
 import {
@@ -36,7 +35,7 @@ export class AuthController {
 		description: 'Sends a verification code to user phone  or email'
 	})
 	public sendOtp(@Body() dto: SendOtpRequest) {
-		return this.client.sendOtp(dto)
+		return this.client.call('sendOtp', dto)
 	}
 
 	@Post('otp/verify')
@@ -50,8 +49,9 @@ export class AuthController {
 		@Body() dto: VerifyOtpRequest,
 		@Res({ passthrough: true }) response: Response
 	) {
-		const { accessToken, refreshToken } = await lastValueFrom(
-			this.client.verifyOtp(dto)
+		const { accessToken, refreshToken } = await this.client.call(
+			'verifyOtp',
+			dto
 		)
 
 		response.cookie('refreshToken', refreshToken, {
@@ -76,9 +76,8 @@ export class AuthController {
 		@Res({ passthrough: true }) response: Response
 	) {
 		const { refreshToken } = request.cookies
-		const { accessToken, refreshToken: newRefreshToken } = await lastValueFrom(
-			this.client.refresh({ refreshToken })
-		)
+		const { accessToken, refreshToken: newRefreshToken } =
+			await this.client.call('refresh', { refreshToken })
 
 		response.cookie('refreshToken', newRefreshToken, {
 			httpOnly: true,
@@ -112,7 +111,7 @@ export class AuthController {
 	@Get('telegram')
 	@HttpCode(HttpStatus.OK)
 	public async telegramInit() {
-		return this.client.telegramInit()
+		return this.client.call('telegramInit', {})
 	}
 
 	@Post('telegram/verify')
@@ -122,8 +121,7 @@ export class AuthController {
 		@Res({ passthrough: true }) response: Response
 	) {
 		const query = JSON.parse(atob(dto.tgAuthResult))
-
-		const result = await lastValueFrom(this.client.telegramVerify({ query }))
+		const result = await this.client.call('telegramVerify', { query })
 		if ('url' in result && result.url) return result
 		if (!result.accessToken || !result.refreshToken)
 			throw new UnauthorizedException('Invalid Telegram login response')
@@ -146,8 +144,9 @@ export class AuthController {
 		@Body() dto: TelegramFinalizeRequest,
 		@Res({ passthrough: true }) response: Response
 	) {
-		const { accessToken, refreshToken } = await lastValueFrom(
-			this.client.telegramConsume(dto)
+		const { accessToken, refreshToken } = await this.client.call(
+			'telegramConsume',
+			dto
 		)
 
 		response.cookie('refreshToken', refreshToken, {
