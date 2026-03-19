@@ -4,6 +4,7 @@ import { PassportModule } from '@vendee-cinema/passport'
 
 import { AccountModule } from '@/modules/account'
 import { UserModule } from '@/modules/user'
+import { ObservabilityModule } from '@/observability'
 
 import { AuthModule } from '../modules/auth'
 
@@ -25,6 +26,7 @@ import { getPassportConfig } from './config'
 			useFactory: getPassportConfig,
 			inject: [ConfigService]
 		}),
+		ObservabilityModule,
 		AuthModule,
 		AccountModule,
 		UserModule
