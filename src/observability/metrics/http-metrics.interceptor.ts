@@ -21,7 +21,7 @@ export class HttpMetricsInterceptor implements NestInterceptor {
 		@InjectMetric('http_requests_in_flight')
 		private readonly inFlight: Gauge<string>
 	) {
-		this.SERVICE_NAME = 'gateway'
+		this.SERVICE_NAME = 'gateway-service'
 	}
 
 	public intercept(
