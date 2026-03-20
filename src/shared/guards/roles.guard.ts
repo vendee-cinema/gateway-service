@@ -6,7 +6,7 @@ import {
 	NotFoundException
 } from '@nestjs/common'
 import { Reflector } from '@nestjs/core'
-import type { Role } from '@vendee-cinema/contracts/gen/account'
+import type { Role } from '@vendee-cinema/contracts/gen/ts/account'
 
 import { AccountClientGrpc } from '@/modules/account'
 

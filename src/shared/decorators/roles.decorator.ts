@@ -1,5 +1,5 @@
 import { SetMetadata } from '@nestjs/common'
-import { Role } from '@vendee-cinema/contracts/gen/account'
+import { Role } from '@vendee-cinema/contracts/gen/ts/account'
 
 export const ROLES_KEY = 'required_roles'
 
