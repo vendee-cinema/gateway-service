@@ -14,4 +14,4 @@ ENV NODE_ENV=production
 COPY package.json bun.lock ./
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/dist ./dist
-CMD ["node", "dist/src/main"]
+CMD ["node", "dist/main"]
