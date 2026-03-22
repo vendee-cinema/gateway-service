@@ -18,10 +18,10 @@ export class MovieController {
 	@Get()
 	@HttpCode(HttpStatus.OK)
 	public async getAll(@Query() dto: GetMoviesRequest) {
-		const { movies } = await this.movie.call('listMovies', dto)
-		return Array.isArray(movies)
-			? movies.map(movie => MovieMapper.toMovie(movie))
-			: movies
+		const response = await this.movie.call('listMovies', dto)
+		return Array.isArray(response.movies)
+			? response.movies.map(movie => MovieMapper.toMovie(movie))
+			: response
 	}
 
 	@Get(':slug')

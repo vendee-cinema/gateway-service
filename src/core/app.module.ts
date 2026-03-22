@@ -3,6 +3,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config'
 import { PassportModule } from '@vendee-cinema/passport'
 
 import { AccountModule } from '@/modules/account'
+import { CategoryModule } from '@/modules/category'
 import { MovieModule } from '@/modules/movie'
 import { UserModule } from '@/modules/user'
 import { ObservabilityModule } from '@/observability'
@@ -31,7 +32,8 @@ import { getPassportConfig } from './config'
 		AuthModule,
 		AccountModule,
 		UserModule,
-		MovieModule
+		MovieModule,
+		CategoryModule
 	],
 	controllers: [AppController],
 	providers: [AppService]
