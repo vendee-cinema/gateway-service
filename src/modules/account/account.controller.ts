@@ -13,7 +13,7 @@ import {
 
 @Controller('account')
 export class AccountController {
-	public constructor(private readonly client: AccountClientGrpc) {}
+	public constructor(private readonly account: AccountClientGrpc) {}
 
 	@Post('email/init')
 	@HttpCode(HttpStatus.OK)
@@ -27,7 +27,7 @@ export class AccountController {
 		@Body() dto: InitEmailChangeRequest,
 		@CurrentUser() userId: string
 	) {
-		return this.client.call('initEmailChange', { ...dto, userId })
+		return this.account.call('initEmailChange', { ...dto, userId })
 	}
 
 	@Post('email/confirm')
@@ -42,7 +42,7 @@ export class AccountController {
 		@Body() dto: ConfirmEmailChangeRequest,
 		@CurrentUser() userId: string
 	) {
-		return this.client.call('confirmEmailChange', { ...dto, userId })
+		return this.account.call('confirmEmailChange', { ...dto, userId })
 	}
 
 	@Post('phone/init')
@@ -57,7 +57,7 @@ export class AccountController {
 		@Body() dto: InitPhoneChangeRequest,
 		@CurrentUser() userId: string
 	) {
-		return this.client.call('initPhoneChange', { ...dto, userId })
+		return this.account.call('initPhoneChange', { ...dto, userId })
 	}
 
 	@Post('phone/confirm')
@@ -72,6 +72,6 @@ export class AccountController {
 		@Body() dto: ConfirmPhoneChangeRequest,
 		@CurrentUser() userId: string
 	) {
-		return this.client.call('confirmPhoneChange', { ...dto, userId })
+		return this.account.call('confirmPhoneChange', { ...dto, userId })
 	}
 }

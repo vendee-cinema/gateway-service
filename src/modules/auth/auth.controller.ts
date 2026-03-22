@@ -25,7 +25,7 @@ import {
 export class AuthController {
 	public constructor(
 		private readonly configService: ConfigService,
-		private readonly client: AuthClientGrpc
+		private readonly auth: AuthClientGrpc
 	) {}
 
 	@Post('otp/send')
@@ -35,7 +35,7 @@ export class AuthController {
 		description: 'Sends a verification code to user phone  or email'
 	})
 	public sendOtp(@Body() dto: SendOtpRequest) {
-		return this.client.call('sendOtp', dto)
+		return this.auth.call('sendOtp', dto)
 	}
 
 	@Post('otp/verify')
@@ -49,10 +49,7 @@ export class AuthController {
 		@Body() dto: VerifyOtpRequest,
 		@Res({ passthrough: true }) response: Response
 	) {
-		const { accessToken, refreshToken } = await this.client.call(
-			'verifyOtp',
-			dto
-		)
+		const { accessToken, refreshToken } = await this.auth.call('verifyOtp', dto)
 
 		response.cookie('refreshToken', refreshToken, {
 			httpOnly: true,
@@ -76,8 +73,10 @@ export class AuthController {
 		@Res({ passthrough: true }) response: Response
 	) {
 		const { refreshToken } = request.cookies
-		const { accessToken, refreshToken: newRefreshToken } =
-			await this.client.call('refresh', { refreshToken })
+		const { accessToken, refreshToken: newRefreshToken } = await this.auth.call(
+			'refresh',
+			{ refreshToken }
+		)
 
 		response.cookie('refreshToken', newRefreshToken, {
 			httpOnly: true,
@@ -111,7 +110,7 @@ export class AuthController {
 	@Get('telegram')
 	@HttpCode(HttpStatus.OK)
 	public async telegramInit() {
-		return this.client.call('telegramInit', {})
+		return this.auth.call('telegramInit', {})
 	}
 
 	@Post('telegram/verify')
@@ -121,7 +120,7 @@ export class AuthController {
 		@Res({ passthrough: true }) response: Response
 	) {
 		const query = JSON.parse(atob(dto.tgAuthResult))
-		const result = await this.client.call('telegramVerify', { query })
+		const result = await this.auth.call('telegramVerify', { query })
 		if ('url' in result && result.url) return result
 		if (!result.accessToken || !result.refreshToken)
 			throw new UnauthorizedException('Invalid Telegram login response')
@@ -144,7 +143,7 @@ export class AuthController {
 		@Body() dto: TelegramFinalizeRequest,
 		@Res({ passthrough: true }) response: Response
 	) {
-		const { accessToken, refreshToken } = await this.client.call(
+		const { accessToken, refreshToken } = await this.auth.call(
 			'telegramConsume',
 			dto
 		)
