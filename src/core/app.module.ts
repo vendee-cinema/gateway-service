@@ -5,6 +5,7 @@ import { PassportModule } from '@vendee-cinema/passport'
 import { AccountModule } from '@/modules/account'
 import { CategoryModule } from '@/modules/category'
 import { MovieModule } from '@/modules/movie'
+import { TheaterModule } from '@/modules/theater'
 import { UserModule } from '@/modules/user'
 import { ObservabilityModule } from '@/observability'
 
@@ -33,7 +34,8 @@ import { getPassportConfig } from './config'
 		AccountModule,
 		UserModule,
 		MovieModule,
-		CategoryModule
+		CategoryModule,
+		TheaterModule
 	],
 	controllers: [AppController],
 	providers: [AppService]

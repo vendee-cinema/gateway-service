@@ -10,6 +10,6 @@ export class CategoryController {
 	@HttpCode(HttpStatus.OK)
 	public async getAll() {
 		const response = await this.category.call('getAllCategories', {})
-		return Array.isArray(response.categories) ? response.categories : response
+		return Array.isArray(response.categories) ? response.categories : []
 	}
 }

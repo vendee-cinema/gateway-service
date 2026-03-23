@@ -21,7 +21,7 @@ export class MovieController {
 		const response = await this.movie.call('listMovies', dto)
 		return Array.isArray(response.movies)
 			? response.movies.map(movie => MovieMapper.toMovie(movie))
-			: response
+			: []
 	}
 
 	@Get(':slug')
