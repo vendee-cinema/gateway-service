@@ -29,7 +29,7 @@ export class TheaterController {
 	}
 
 	@Post()
-	@HttpCode(HttpStatus.OK)
+	@HttpCode(HttpStatus.CREATED)
 	// @Protected(Role.ADMIN)
 	public async create(@Body() dto: CreateTheaterRequest) {
 		return await this.theater.call('createTheater', dto)
