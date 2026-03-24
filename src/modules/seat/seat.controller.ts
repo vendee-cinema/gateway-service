@@ -12,10 +12,17 @@ export class SeatController {
 		@Param('hallId') hallId: string,
 		@Param('sessionId') sessionId: string
 	) {
-		const response = await this.seat.call('listSeatsByHall', {
+		const { seats } = await this.seat.call('listSeatsByHall', {
 			hallId,
 			sessionId
 		})
-		return Array.isArray(response.seats) ? response.seats : []
+		return Array.isArray(seats) ? seats : []
+	}
+
+	@Get(':id')
+	@HttpCode(HttpStatus.OK)
+	public async getById(@Param('id') id: string) {
+		const { seat } = await this.seat.call('getSeat', { id })
+		return seat
 	}
 }

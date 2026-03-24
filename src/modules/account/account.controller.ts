@@ -23,11 +23,11 @@ export class AccountController {
 		description: "Sends a confirmation code to a user's new email address"
 	})
 	@ApiBearerAuth()
-	public initEmailChange(
+	public async initEmailChange(
 		@Body() dto: InitEmailChangeRequest,
 		@CurrentUser() userId: string
 	) {
-		return this.account.call('initEmailChange', { ...dto, userId })
+		return await this.account.call('initEmailChange', { ...dto, userId })
 	}
 
 	@Post('email/confirm')
@@ -38,11 +38,11 @@ export class AccountController {
 		description: "Verifies confirmation code and updates user's email address"
 	})
 	@ApiBearerAuth()
-	public confirmEmailChange(
+	public async confirmEmailChange(
 		@Body() dto: ConfirmEmailChangeRequest,
 		@CurrentUser() userId: string
 	) {
-		return this.account.call('confirmEmailChange', { ...dto, userId })
+		return await this.account.call('confirmEmailChange', { ...dto, userId })
 	}
 
 	@Post('phone/init')
@@ -53,11 +53,11 @@ export class AccountController {
 		description: "Sends a confirmation code to a user's new phone number"
 	})
 	@ApiBearerAuth()
-	public initPhoneChange(
+	public async initPhoneChange(
 		@Body() dto: InitPhoneChangeRequest,
 		@CurrentUser() userId: string
 	) {
-		return this.account.call('initPhoneChange', { ...dto, userId })
+		return await this.account.call('initPhoneChange', { ...dto, userId })
 	}
 
 	@Post('phone/confirm')
@@ -68,10 +68,10 @@ export class AccountController {
 		description: "Verifies confirmation code and updates user's phone number"
 	})
 	@ApiBearerAuth()
-	public confirmPhoneChange(
+	public async confirmPhoneChange(
 		@Body() dto: ConfirmPhoneChangeRequest,
 		@CurrentUser() userId: string
 	) {
-		return this.account.call('confirmPhoneChange', { ...dto, userId })
+		return await this.account.call('confirmPhoneChange', { ...dto, userId })
 	}
 }

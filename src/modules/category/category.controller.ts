@@ -9,7 +9,7 @@ export class CategoryController {
 	@Get()
 	@HttpCode(HttpStatus.OK)
 	public async getAll() {
-		const response = await this.category.call('getAllCategories', {})
-		return Array.isArray(response.categories) ? response.categories : []
+		const { categories } = await this.category.call('getAllCategories', {})
+		return Array.isArray(categories) ? categories : []
 	}
 }

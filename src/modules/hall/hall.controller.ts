@@ -18,13 +18,22 @@ export class HallController {
 	@Get(':id')
 	@HttpCode(HttpStatus.OK)
 	public async getById(@Param('id') id: string) {
-		return await this.hall.call('getHall', { id })
+		const { hall } = await this.hall.call('getHall', { id })
+		return hall
+	}
+
+	@Get('theater/:theaterId')
+	@HttpCode(HttpStatus.OK)
+	public async getByTheater(@Param('theaterId') theaterId: string) {
+		const { halls } = await this.hall.call('listHallsByTheater', { theaterId })
+		return Array.isArray(halls) ? halls : []
 	}
 
 	@Post()
 	@HttpCode(HttpStatus.CREATED)
 	// @Protected(Role.ADMIN)
 	public async create(@Body() dto: CreateHallRequest) {
-		return await this.hall.call('createHall', dto)
+		const { hall } = await this.hall.call('createHall', dto)
+		return hall
 	}
 }

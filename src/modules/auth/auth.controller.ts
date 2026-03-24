@@ -34,8 +34,8 @@ export class AuthController {
 		summary: 'Send OTP code',
 		description: 'Sends a verification code to user phone  or email'
 	})
-	public sendOtp(@Body() dto: SendOtpRequest) {
-		return this.auth.call('sendOtp', dto)
+	public async sendOtp(@Body() dto: SendOtpRequest) {
+		return await this.auth.call('sendOtp', dto)
 	}
 
 	@Post('otp/verify')
@@ -103,14 +103,13 @@ export class AuthController {
 			sameSite: 'lax',
 			expires: new Date(0)
 		})
-
 		return { ok: true }
 	}
 
 	@Get('telegram')
 	@HttpCode(HttpStatus.OK)
 	public async telegramInit() {
-		return this.auth.call('telegramInit', {})
+		return await this.auth.call('telegramInit', {})
 	}
 
 	@Post('telegram/verify')

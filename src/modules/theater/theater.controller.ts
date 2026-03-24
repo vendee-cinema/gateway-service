@@ -18,20 +18,22 @@ export class TheaterController {
 	@Get()
 	@HttpCode(HttpStatus.OK)
 	public async getAll() {
-		const response = await this.theater.call('listTheaters', {})
-		return Array.isArray(response.theaters) ? response.theaters : []
+		const { theaters } = await this.theater.call('listTheaters', {})
+		return Array.isArray(theaters) ? theaters : []
 	}
 
 	@Get(':id')
 	@HttpCode(HttpStatus.OK)
 	public async getById(@Param('id') id: string) {
-		return await this.theater.call('getTheater', { id })
+		const { theater } = await this.theater.call('getTheater', { id })
+		return theater
 	}
 
 	@Post()
 	@HttpCode(HttpStatus.CREATED)
 	// @Protected(Role.ADMIN)
 	public async create(@Body() dto: CreateTheaterRequest) {
-		return await this.theater.call('createTheater', dto)
+		const { theater } = await this.theater.call('createTheater', dto)
+		return theater
 	}
 }

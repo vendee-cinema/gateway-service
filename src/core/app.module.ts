@@ -7,6 +7,7 @@ import { CategoryModule } from '@/modules/category'
 import { HallModule } from '@/modules/hall'
 import { MovieModule } from '@/modules/movie'
 import { SeatModule } from '@/modules/seat'
+import { SessionModule } from '@/modules/session'
 import { TheaterModule } from '@/modules/theater'
 import { UserModule } from '@/modules/user'
 import { ObservabilityModule } from '@/observability'
@@ -39,7 +40,8 @@ import { getPassportConfig } from './config'
 		CategoryModule,
 		TheaterModule,
 		HallModule,
-		SeatModule
+		SeatModule,
+		SessionModule
 	],
 	controllers: [AppController],
 	providers: [AppService]

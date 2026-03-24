@@ -111,6 +111,9 @@ export class UserController {
 			resizeWidth: 512,
 			resizeHeight: 512
 		})
-		return this.userClient.call('patchUser', { userId, avatar: response.key })
+		return await this.userClient.call('patchUser', {
+			userId,
+			avatar: response.key
+		})
 	}
 }
