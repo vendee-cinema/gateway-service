@@ -6,10 +6,12 @@ import { AccountModule } from '@/modules/account'
 import { CategoryModule } from '@/modules/category'
 import { HallModule } from '@/modules/hall'
 import { MovieModule } from '@/modules/movie'
+import { PaymentModule } from '@/modules/payments'
 import { SeatModule } from '@/modules/seat'
 import { SessionModule } from '@/modules/session'
 import { TheaterModule } from '@/modules/theater'
 import { UserModule } from '@/modules/user'
+import { WebhookModule } from '@/modules/webhook'
 import { ObservabilityModule } from '@/observability'
 
 import { AuthModule } from '../modules/auth'
@@ -41,7 +43,9 @@ import { getPassportConfig } from './config'
 		TheaterModule,
 		HallModule,
 		SeatModule,
-		SessionModule
+		SessionModule,
+		PaymentModule,
+		WebhookModule
 	],
 	controllers: [AppController],
 	providers: [AppService]
