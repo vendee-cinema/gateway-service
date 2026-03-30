@@ -1,4 +1,11 @@
-import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common'
+import {
+	Body,
+	Controller,
+	HttpCode,
+	HttpStatus,
+	Param,
+	Post
+} from '@nestjs/common'
 import { ApiBearerAuth } from '@nestjs/swagger'
 
 import { CurrentUser, Protected } from '@/shared/decorators'
@@ -19,5 +26,13 @@ export class PaymentController {
 		@CurrentUser() userId: string
 	) {
 		return await this.payment.call('createPayment', { ...dto, userId })
+	}
+
+	@Post(':orderId/status')
+	@HttpCode(HttpStatus.OK)
+	@Protected()
+	@ApiBearerAuth()
+	public async getPaymentStatus(@Param('orderId') orderId: string) {
+		return await this.payment.call('getPaymentStatus', { orderId })
 	}
 }
