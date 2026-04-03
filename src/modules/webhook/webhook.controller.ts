@@ -11,7 +11,7 @@ export class WebhookController {
 	@Post('liqpay')
 	@HttpCode(HttpStatus.OK)
 	public async handleLiqPay(@Body() dto: LiqPayCallback) {
-		console.log('DTO: ', dto)
+		// console.log('DTO: ', dto)
 
 		return await this.payment.call('processPaymentEvent', {
 			...dto,

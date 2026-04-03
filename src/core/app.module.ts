@@ -7,6 +7,7 @@ import { CategoryModule } from '@/modules/category'
 import { HallModule } from '@/modules/hall'
 import { MovieModule } from '@/modules/movie'
 import { PaymentModule } from '@/modules/payments'
+import { RefundModule } from '@/modules/refund'
 import { SeatModule } from '@/modules/seat'
 import { SessionModule } from '@/modules/session'
 import { TheaterModule } from '@/modules/theater'
@@ -45,6 +46,7 @@ import { getPassportConfig } from './config'
 		SeatModule,
 		SessionModule,
 		PaymentModule,
+		RefundModule,
 		WebhookModule
 	],
 	controllers: [AppController],
