@@ -3,6 +3,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config'
 import { PassportModule } from '@vendee-cinema/passport'
 
 import { AccountModule } from '@/modules/account'
+import { BookingModule } from '@/modules/booking'
 import { CategoryModule } from '@/modules/category'
 import { HallModule } from '@/modules/hall'
 import { MovieModule } from '@/modules/movie'
@@ -47,7 +48,8 @@ import { getPassportConfig } from './config'
 		SessionModule,
 		PaymentModule,
 		RefundModule,
-		WebhookModule
+		WebhookModule,
+		BookingModule
 	],
 	controllers: [AppController],
 	providers: [AppService]
